@@ -35,8 +35,8 @@ interface ToolDeclaration {
 }
 
 const ChatInterface = () => {
-  const [apiKey, setApiKey] = useState("");
-  const [endpoint, setEndpoint] = useState("");
+  // const [apiKey, setApiKey] = useState("");
+  // const [endpoint, setEndpoint] = useState("");
   // const [deployment, setDeployment] = useState("gpt-4o-realtime-preview");
   const deployment = "gpt-4o-realtime-preview";
   const [useVAD, setUseVAD] = useState(true);
@@ -72,7 +72,7 @@ const ChatInterface = () => {
     if (!isConnected) {
       try {
         setIsConnecting(true);
-        clientRef.current = new RTClient(new URL(endpoint), { key: apiKey }, { deployment });
+        clientRef.current = new RTClient(new URL(localStorage.getItem('endpoint')||''), { key: localStorage.getItem('apiKey')||'' }, { deployment });
         const modalities: Modality[] =
           modality === "audio" ? ["text", "audio"] : ["text"];
         const turnDetection: TurnDetection = useVAD
@@ -244,10 +244,6 @@ const ChatInterface = () => {
 
     initAudioHandler().catch(console.error);
 
-    if (localStorage.getItem('endpoint') && localStorage.getItem('apiKey')) {
-      setEndpoint(localStorage.getItem('endpoint') || '');
-      setApiKey(localStorage.getItem('apiKey') || '');
-    }
     return () => {
       disconnect();
       audioHandlerRef.current?.close().catch(console.error);
@@ -358,10 +354,8 @@ const ChatInterface = () => {
                     const azureK0 = azureK?.split('|')[0];
                     const azureK1 = azureK?.split('|')[1];
                     if (azureK0 && azureK1) {
-                      localStorage.setItem('apiKey', azureK0);
-                      localStorage.setItem('endpoint', azureK1);
-                      setEndpoint(azureK0);
-                      setApiKey(azureK1);
+                      localStorage.setItem('apiKey', azureK1);
+                      localStorage.setItem('endpoint', azureK0);
                     }
                   }
                 }} >Setup</Button>
