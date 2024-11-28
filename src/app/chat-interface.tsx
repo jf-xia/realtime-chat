@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Plus, Send, Mic, MicOff, Power, Settings } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Send, Mic, MicOff, Power, Settings } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -43,7 +42,8 @@ const ChatInterface = () => {
   const [instructions, setInstructions] = useState("You are an AI assistant that helps people find information.");
   const [temperature, setTemperature] = useState(0.9);
   const [modality, setModality] = useState("audio");
-  const [tools, setTools] = useState<ToolDeclaration[]>([]);
+  // const [tools, setTools] = useState<ToolDeclaration[]>([]);
+  const tools: ToolDeclaration[] = [];
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
@@ -52,21 +52,21 @@ const ChatInterface = () => {
   const clientRef = useRef<RTClient | null>(null);
   const audioHandlerRef = useRef<AudioHandler | null>(null);
 
-  const addTool = () => {
-    setTools([...tools, { name: "", parameters: "", returnValue: "" }]);
-  };
+  // const addTool = () => {
+  //   setTools([...tools, { name: "", parameters: "", returnValue: "" }]);
+  // };
 
-  const updateTool = (index: number, field: string, value: string) => {
-    const newTools = [...tools];
+  // const updateTool = (index: number, field: string, value: string) => {
+  //   const newTools = [...tools];
 
-    if (field === "name") {
-      newTools[index].name = value;
-    } else if (field === "parameters") {
-      newTools[index].parameters = value;
-    } else if (field === "returnValue") {
-      newTools[index].returnValue = value;
-    }
-  };
+  //   if (field === "name") {
+  //     newTools[index].name = value;
+  //   } else if (field === "parameters") {
+  //     newTools[index].parameters = value;
+  //   } else if (field === "returnValue") {
+  //     newTools[index].returnValue = value;
+  //   }
+  // };
 
   const handleConnect = async () => {
     if (!isConnected) {
@@ -255,7 +255,7 @@ const ChatInterface = () => {
       {/* Parameters Panel */}
       <div className="" >
         <div className="flex items-center justify-center ">
-          <div className="">
+          {/* <div className="">
             {tools.map((tool, index) => (
               <Card key={index} className="">
                 <Input
@@ -287,7 +287,7 @@ const ChatInterface = () => {
                 />
               </Card>
             ))}
-            {/* <Button
+            <Button
               variant="outline"
               size="sm"
               onClick={addTool}
@@ -296,8 +296,8 @@ const ChatInterface = () => {
             >
               <Plus className="" />
               Tool
-            </Button> */}
-          </div>
+            </Button>
+          </div> */}
 
           <div className="flex-1 m-2">
             <label className="text-sm font-medium">
