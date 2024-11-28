@@ -352,7 +352,7 @@ const ChatInterface = () => {
                   }
                 }
               }} >
-              S
+              <Settings className="w-4 h-4" />
             </Button>
           </div>
 
@@ -362,7 +362,7 @@ const ChatInterface = () => {
               onClick={handleConnect}
               disabled={isConnecting}
             >
-              P
+              <Power className="w-4 h-4" />
               {/* {isConnecting
                 ? "Connecting..."
                 : isConnected
