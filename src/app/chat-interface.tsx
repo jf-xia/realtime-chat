@@ -49,6 +49,9 @@ const ChatInterface = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [threshold, setThreshold] = useState(0.5);
+  const [prefixPaddingMs, setPrefixPaddingMs] = useState(500);
+  const [silenceDurationMs, setSilenceDurationMs] = useState(500);
   const clientRef = useRef<RTClient | null>(null);
   const audioHandlerRef = useRef<AudioHandler | null>(null);
 
@@ -75,9 +78,12 @@ const ChatInterface = () => {
         clientRef.current = new RTClient(new URL(localStorage.getItem('endpoint') || ''), { key: localStorage.getItem('apiKey') || '' }, { deployment });
         const modalities: Modality[] =
           modality === "audio" ? ["text", "audio"] : ["text"];
-        const turnDetection: TurnDetection = useVAD
-          ? { type: "server_vad" }
-          : null;
+        const turnDetection: TurnDetection = useVAD ? {
+          type: "server_vad",
+          threshold: threshold,
+          prefix_padding_ms: prefixPaddingMs,
+          silence_duration_ms: silenceDurationMs,
+        } : null;
         clientRef.current.configure({
           instructions: instructions?.length > 0 ? instructions : undefined,
           input_audio_transcription: { model: "whisper-1" },
@@ -371,6 +377,53 @@ const ChatInterface = () => {
             </Button>
           </div>
         </div>
+
+        <div className="flex items-center justify-center ">
+
+          <div className="flex-1 m-2">
+            <label className="text-sm font-medium">
+              Threshold ({threshold})
+            </label>
+            <Slider
+              value={[threshold]}
+              onValueChange={([value]) => setThreshold(value)}
+              min={0}
+              max={1}
+              step={0.1}
+              disabled={isConnected}
+            />
+          </div>
+
+          <div className="flex-1 m-2">
+            <label className="text-sm font-medium">
+              Prefix P. ({prefixPaddingMs}ms)
+            </label>
+            <Slider
+              value={[prefixPaddingMs]}
+              onValueChange={([value]) => setPrefixPaddingMs(value)}
+              min={0}
+              max={2000}
+              step={100}
+              disabled={isConnected}
+            />
+          </div>
+
+          <div className="flex-1 m-2">
+            <label className="text-sm font-medium">
+              Silence D. ({silenceDurationMs}ms)
+            </label>
+            <Slider
+              value={[silenceDurationMs]}
+              onValueChange={([value]) => setSilenceDurationMs(value)}
+              min={0}
+              max={2000}
+              step={100}
+              disabled={isConnected}
+            />
+          </div>
+
+        </div>
+
         <div className="w-full ">
           <textarea
             className="w-full border rounded"
