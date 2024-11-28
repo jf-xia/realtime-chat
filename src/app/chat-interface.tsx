@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Plus, Send, Mic, MicOff, Power } from "lucide-react";
+import { Plus, Send, Mic, MicOff, Power, Settings } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
   Select,
@@ -72,7 +72,7 @@ const ChatInterface = () => {
     if (!isConnected) {
       try {
         setIsConnecting(true);
-        clientRef.current = new RTClient(new URL(localStorage.getItem('endpoint')||''), { key: localStorage.getItem('apiKey')||'' }, { deployment });
+        clientRef.current = new RTClient(new URL(localStorage.getItem('endpoint') || ''), { key: localStorage.getItem('apiKey') || '' }, { deployment });
         const modalities: Modality[] =
           modality === "audio" ? ["text", "audio"] : ["text"];
         const turnDetection: TurnDetection = useVAD
@@ -251,130 +251,136 @@ const ChatInterface = () => {
   }, []);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col h-screen">
       {/* Parameters Panel */}
-      <div className="w-30 bg-gray-50 p-4 flex flex-col border-r" style={{width:"110px"}}>
-        <div className="flex-1 overflow-y-auto">
-                <div className="flex items-center justify-between">
-                  <span>Use Server VAD</span><br />
-                  <Switch
-                    checked={useVAD}
-                    onCheckedChange={setUseVAD}
-                    disabled={isConnected}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Instructions</label>
-                  <textarea
-                    className="w-full min-h-[100px] p-2 border rounded"
-                    value={instructions}
-                    onChange={(e) => setInstructions(e.target.value)}
-                    disabled={isConnected}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Tools</label>
-                  {tools.map((tool, index) => (
-                    <Card key={index} className="p-2">
-                      <Input
-                        placeholder="Function name"
-                        value={tool.name}
-                        onChange={(e) =>
-                          updateTool(index, "name", e.target.value)
-                        }
-                        className="mb-2"
-                        disabled={isConnected}
-                      />
-                      <Input
-                        placeholder="Parameters"
-                        value={tool.parameters}
-                        onChange={(e) =>
-                          updateTool(index, "parameters", e.target.value)
-                        }
-                        className="mb-2"
-                        disabled={isConnected}
-                      />
-                      <Input
-                        placeholder="Return value"
-                        value={tool.returnValue}
-                        onChange={(e) =>
-                          updateTool(index, "returnValue", e.target.value)
-                        }
-                        disabled={isConnected}
-                      />
-                    </Card>
-                  ))}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={addTool}
-                    className="w-full"
-                    disabled={isConnected || true}
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Tool
-                  </Button>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    Temperature ({temperature})
-                  </label>
-                  <Slider
-                    value={[temperature]}
-                    onValueChange={([value]) => setTemperature(value)}
-                    min={0.6}
-                    max={1.2}
-                    step={0.1}
-                    disabled={isConnected}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Modality</label>
-                  <Select
-                    value={modality}
-                    onValueChange={setModality}
-                    disabled={isConnected}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="text">Text</SelectItem>
-                      <SelectItem value="audio">Audio</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <Button onClick={() => {
-                  const azureK: string = prompt('') || '';
-                  if (azureK.indexOf('|') > 0) {
-                    const azureK0 = azureK?.split('|')[0];
-                    const azureK1 = azureK?.split('|')[1];
-                    if (azureK0 && azureK1) {
-                      localStorage.setItem('apiKey', azureK1);
-                      localStorage.setItem('endpoint', azureK0);
-                    }
+      <div className="" >
+        <div className="flex items-center justify-center ">
+          <div className="">
+            {tools.map((tool, index) => (
+              <Card key={index} className="">
+                <Input
+                  placeholder="Function name"
+                  value={tool.name}
+                  onChange={(e) =>
+                    updateTool(index, "name", e.target.value)
                   }
-                }} >Setup</Button>
-        </div>
+                  className="flex-1"
+                  disabled={isConnected}
+                />
+                <Input
+                  placeholder="Parameters"
+                  value={tool.parameters}
+                  onChange={(e) =>
+                    updateTool(index, "parameters", e.target.value)
+                  }
+                  className="flex-1"
+                  disabled={isConnected}
+                />
+                <Input
+                  placeholder="Return value"
+                  value={tool.returnValue}
+                  className="flex-1"
+                  onChange={(e) =>
+                    updateTool(index, "returnValue", e.target.value)
+                  }
+                  disabled={isConnected}
+                />
+              </Card>
+            ))}
+            {/* <Button
+              variant="outline"
+              size="sm"
+              onClick={addTool}
+              className=""
+              disabled={isConnected || true}
+            >
+              <Plus className="" />
+              Tool
+            </Button> */}
+          </div>
 
-        {/* Connect Button */}
-        <Button
-          className="mt-4"
-          variant={isConnected ? "destructive" : "default"}
-          onClick={handleConnect}
-          disabled={isConnecting}
-        >
-          <Power className="w-4 h-4 mr-2" />
-          {isConnecting
-            ? "Connecting..."
-            : isConnected
-              ? "Disconnect"
-              : "Connect"}
-        </Button>
+          <div className="flex-1 m-2">
+            <label className="text-sm font-medium">
+              Temperature ({temperature})
+            </label>
+            <Slider
+              value={[temperature]}
+              onValueChange={([value]) => setTemperature(value)}
+              min={0.6}
+              max={1.2}
+              step={0.1}
+              disabled={isConnected}
+            />
+          </div>
+
+          <div className="flex-2 m-2">
+            <Select
+              value={modality}
+              onValueChange={setModality}
+              disabled={isConnected}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="text">Text</SelectItem>
+                <SelectItem value="audio">Audio</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex-2 m-2">
+            {/* <span>VAD</span> &nbsp; */}
+            <Switch
+              checked={useVAD}
+              onCheckedChange={setUseVAD}
+              disabled={isConnected}
+            />
+          </div>
+
+          <div className="flex-2 m-2">
+            <Button
+              variant="default"
+              onClick={() => {
+                const azureK: string = prompt('') || '';
+                if (azureK.indexOf('|') > 0) {
+                  const azureK0 = azureK?.split('|')[0];
+                  const azureK1 = azureK?.split('|')[1];
+                  if (azureK0 && azureK1) {
+                    localStorage.setItem('apiKey', azureK1);
+                    localStorage.setItem('endpoint', azureK0);
+                  }
+                }
+              }} >
+              S
+            </Button>
+          </div>
+
+          <div className="flex-2 m-2">
+            <Button
+              variant={isConnected ? "destructive" : "default"}
+              onClick={handleConnect}
+              disabled={isConnecting}
+            >
+              P
+              {/* {isConnecting
+                ? "Connecting..."
+                : isConnected
+                  ? "Disconnect"
+                  : "Connect"} */}
+            </Button>
+          </div>
+        </div>
+        <div className="w-full ">
+          <textarea
+            className="w-full border rounded"
+            value={instructions}
+            placeholder="Instructions"
+            rows={2}
+            onChange={(e) => setInstructions(e.target.value)}
+            disabled={isConnected}
+          />
+        </div>
       </div>
 
       {/* Chat Window */}
@@ -384,11 +390,10 @@ const ChatInterface = () => {
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`mb-4 p-3 rounded-lg ${
-                message.type === "user"
-                  ? "bg-blue-100 ml-auto max-w-[80%]"
-                  : "bg-gray-100 mr-auto max-w-[80%]"
-              }`}
+              className={`mb-4 p-3 rounded-lg ${message.type === "user"
+                ? "bg-blue-100 ml-auto max-w-[80%]"
+                : "bg-gray-100 mr-auto max-w-[80%]"
+                }`}
             >
               {message.content}
             </div>
