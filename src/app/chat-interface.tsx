@@ -378,51 +378,52 @@ const ChatInterface = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center ">
+        {useVAD && (
+          <div className="flex items-center justify-center ">
 
-          <div className="flex-1 m-2">
-            <label className="text-sm font-medium">
-              Threshold ({threshold})
-            </label>
-            <Slider
-              value={[threshold]}
-              onValueChange={([value]) => setThreshold(value)}
-              min={0}
-              max={1}
-              step={0.1}
-              disabled={isConnected}
-            />
-          </div>
+            <div className="flex-1 m-2">
+              <label className="text-sm font-medium">
+                Threshold ({threshold})
+              </label>
+              <Slider
+                value={[threshold]}
+                onValueChange={([value]) => setThreshold(value)}
+                min={0}
+                max={1}
+                step={0.1}
+                disabled={isConnected}
+              />
+            </div>
 
-          <div className="flex-1 m-2">
-            <label className="text-sm font-medium">
-              Prefix P. ({prefixPaddingMs}ms)
-            </label>
-            <Slider
-              value={[prefixPaddingMs]}
-              onValueChange={([value]) => setPrefixPaddingMs(value)}
-              min={0}
-              max={2000}
-              step={100}
-              disabled={isConnected}
-            />
-          </div>
+            <div className="flex-1 m-2">
+              <label className="text-sm font-medium">
+                Prefix P. ({prefixPaddingMs}ms)
+              </label>
+              <Slider
+                value={[prefixPaddingMs]}
+                onValueChange={([value]) => setPrefixPaddingMs(value)}
+                min={0}
+                max={2000}
+                step={100}
+                disabled={isConnected}
+              />
+            </div>
 
-          <div className="flex-1 m-2">
-            <label className="text-sm font-medium">
-              Silence D. ({silenceDurationMs}ms)
-            </label>
-            <Slider
-              value={[silenceDurationMs]}
-              onValueChange={([value]) => setSilenceDurationMs(value)}
-              min={0}
-              max={2000}
-              step={100}
-              disabled={isConnected}
-            />
-          </div>
+            <div className="flex-1 m-2">
+              <label className="text-sm font-medium">
+                Silence D. ({silenceDurationMs}ms)
+              </label>
+              <Slider
+                value={[silenceDurationMs]}
+                onValueChange={([value]) => setSilenceDurationMs(value)}
+                min={0}
+                max={2000}
+                step={100}
+                disabled={isConnected}
+              />
+            </div>
 
-        </div>
+          </div>)}
 
         <div className="w-full ">
           <textarea
