@@ -595,7 +595,7 @@ function PromptHints(props: {
 
   if (noPrompts) return null;
   return (
-    <div className="absolute bottom-16 w-full max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg z-50">
+    <div className="relative w-full max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg z-50">
       {props.prompts.map((prompt, i) => (
         <div
           ref={i === selectIndex ? selectedRef : null}
