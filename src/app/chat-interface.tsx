@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Mic, MicOff, Power, Settings } from "lucide-react";
+import { Send, Mic, MicOff, Power, Settings, RefreshCcwIcon } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
 import {
   Select,
@@ -635,14 +635,56 @@ const ChatInterface = () => {
   const clientRef = useRef<RTClient | null>(null);
   const audioHandlerRef = useRef<AudioHandler | null>(null);
   const [promptHints, setPromptHints] = useState<Prompt[]>([]);
-  // { 
-  //   type: "assistant",
-  //     content: "Hello",
-  //   },
-  // {
-  //   type: "user",
-  //     content: "Hello!",
-  //   },
+  const [isFocused, setIsFocused] = useState(false);
+
+  const getLineCount = (text: string) => {
+    const lines = text.length / 30;
+    return Math.min(lines, 5);
+  };
+
+  useEffect(() => {
+    const initAudioHandler = async () => {
+      const handler = new AudioHandler();
+      await handler.initialize();
+      audioHandlerRef.current = handler;
+    };
+
+    initAudioHandler().catch(console.error);
+    setInstructions(localStorage.getItem('instructions') || '');
+    return () => {
+      disconnect();
+      audioHandlerRef.current?.close().catch(console.error);
+    };
+  }, []);
+
+  useEffect(() => {
+    let wakeLock: WakeLockSentinel | null = null;
+
+    const requestWakeLock = async () => {
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        wakeLock.addEventListener('release', () => {
+          console.log('Wake Lock 已释放');
+        });
+        console.log('Wake Lock 已激活');
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(`${err.name}, ${err.message}`);
+        } else {
+          console.error(err);
+        }
+      }
+    };
+
+    requestWakeLock();
+
+    return () => {
+      if (wakeLock) {
+        wakeLock.release();
+        wakeLock = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (instructions.length > 0) {
@@ -847,27 +889,6 @@ const ChatInterface = () => {
         console.error("Failed to stop recording:", error);
       }
     }
-  };
-
-  useEffect(() => {
-    const initAudioHandler = async () => {
-      const handler = new AudioHandler();
-      await handler.initialize();
-      audioHandlerRef.current = handler;
-    };
-
-    initAudioHandler().catch(console.error);
-    setInstructions(localStorage.getItem('instructions') || '');
-    return () => {
-      disconnect();
-      audioHandlerRef.current?.close().catch(console.error);
-    };
-  }, []);
-  const [isFocused, setIsFocused] = useState(false);
-  const getLineCount = (text: string) => {
-    const lines = text.length / 30;
-
-    return Math.min(lines, 5);
   };
 
   return (
@@ -1083,6 +1104,9 @@ const ChatInterface = () => {
                 : isConnected
                   ? "Disconnect"
                   : "Connect"} */}
+            </Button>
+            <Button onClick={() => window.location.reload()}>
+              <RefreshCcwIcon className="w-4 h-4" />
             </Button>
             <Input
               value={currentMessage}
