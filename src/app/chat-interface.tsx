@@ -43,7 +43,7 @@ export interface Prompt {
 const promptArray = [
   [
     "担任心理健康顾问",
-    "我想让你担任心理健康顾问。我将为您提供一个寻求指导和建议的人，以管理他们的情绪、压力、焦虑和其他心理健康问题。您应该利用您的认知行为疗法、冥想技巧、正念练习和其他治疗方法的知识来制定个人可以实施的策略，以改善他们的整体健康状况。我的第一个请求是“我需要一个可以帮助我控制抑郁症状的人。”\n"
+    "我想让你担任心理健康顾问。我将为您提供一个寻求指导和建议的人，以管理他们的情绪、压力、焦虑和其他心理健康问题。您应该利用您的认知行为疗法、冥想技巧、正念练习和其他治疗方法的知识来制定个人可以实施的策略，以改善他们的整体健康状况。”\n"
   ],
   [
     "充当心理学家",
@@ -63,7 +63,7 @@ const promptArray = [
   ],
   [
     "担任法律顾问",
-    "我想让你做我的法律顾问。我将描述一种法律情况，您将就如何处理它提供建议。你应该只回复你的建议，而不是其他。不要写解释。我的第一个请求是“我出了车祸，不知道该怎么办”。\n"
+    "我想让你做我的法律顾问。我将描述一种法律情况，您将就如何处理它提供建议。你应该只回复你的建议，而不是其他。不要写解释。。\n"
   ],
   [
     "担任雅思写作考官",
@@ -643,6 +643,13 @@ const ChatInterface = () => {
   //   type: "user",
   //     content: "Hello!",
   //   },
+
+  useEffect(() => {
+    if (instructions.length > 0) {
+      localStorage.setItem('instructions', instructions);
+    }
+  }, [instructions]);
+
   const onSearch = useDebouncedCallback(
     (text: string) => {
       setPromptHints(promptSearch(text));
@@ -653,7 +660,7 @@ const ChatInterface = () => {
 
   const onPromptSelect = (prompt: Prompt) => {
     setPromptHints([]);
-    localStorage.setItem('instructions', prompt.content);
+    setInstructions(prompt.content);
   };
 
   // const addTool = () => {
@@ -877,7 +884,7 @@ const ChatInterface = () => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             onChange={(e) => {
-              localStorage.setItem('instructions', e.target.value);
+              setInstructions(e.target.value);
               const text = e.target.value;
               if (text.startsWith("/")) {
                 const searchText = text.slice(1);
