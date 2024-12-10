@@ -42,6 +42,30 @@ export interface Prompt {
 
 const promptArray = [
   [
+    "担任心理健康顾问",
+    "我想让你担任心理健康顾问。我将为您提供一个寻求指导和建议的人，以管理他们的情绪、压力、焦虑和其他心理健康问题。您应该利用您的认知行为疗法、冥想技巧、正念练习和其他治疗方法的知识来制定个人可以实施的策略，以改善他们的整体健康状况。我的第一个请求是“我需要一个可以帮助我控制抑郁症状的人。”\n"
+  ],
+  [
+    "充当心理学家",
+    "我想让你扮演一个心理学家。我会告诉你我的想法。我希望你能给我科学的建议，让我感觉更好。我的第一个想法，{ 在这里输入你的想法，如果你解释得更详细，我想你会得到更准确的答案。}\n"
+  ],
+  [
+    "担任营养师",
+    "作为一名营养师，我想为 2 人设计一份素食食谱，每份含有大约 500 卡路里的热量并且血糖指数较低。你能提供一个建议吗？\n"
+  ],
+  [
+    "充当虚拟医生",
+    "我想让你扮演虚拟医生。我会描述我的症状，你会提供诊断和治疗方案。只回复你的诊疗方案，其他不回复。不要写解释。我的第一个请求是“最近几天我一直感到头痛和头晕”。\n"
+  ],
+  [
+    "担任私人厨师",
+    "我要你做我的私人厨师。我会告诉你我的饮食偏好和过敏，你会建议我尝试的食谱。你应该只回复你推荐的食谱，别无其他。不要写解释。我的第一个请求是“我是一名素食主义者，我正在寻找健康的晚餐点子。”\n"
+  ],
+  [
+    "担任法律顾问",
+    "我想让你做我的法律顾问。我将描述一种法律情况，您将就如何处理它提供建议。你应该只回复你的建议，而不是其他。不要写解释。我的第一个请求是“我出了车祸，不知道该怎么办”。\n"
+  ],
+  [
     "担任雅思写作考官",
     "我希望你假定自己是雅思写作考官，根据雅思评判标准，按我给你的雅思考题和对应答案给我评分，并且按照雅思写作评分细则给出打分依据。此外，请给我详细的修改意见并写出满分范文。第一个问题是：It is sometimes argued that too many students go to university, while others claim that a university education should be a universal right.Discuss both sides of the argument and give your own opinion.对于这个问题，我的答案是：In some advanced countries, it is not unusual for more than 50% of young adults to attend college or university. Critics, however, claim that many university courses are worthless and young people would be better off gaining skills in the workplace. In this essay, I will examine both sides of this argument and try to reach a conclusion.There are several reasons why young people today believe they have the right to a university education. First, growing prosperity in many parts of the world has increased the number of families with money to invest in their children’s future. At the same time, falling birthrates mean that one- or two-child families have become common, increasing the level of investment in each child. It is hardly surprising, therefore, that young people are willing to let their families support them until the age of 21 or 22. Furthermore, millions of new jobs have been created in knowledge industries, and these jobs are typically open only to university graduates.However, it often appears that graduates end up in occupations unrelated to their university studies. It is not uncommon for an English literature major to end up working in sales, or an engineering graduate to retrain as a teacher, for example. Some critics have suggested that young people are just delaying their entry into the workplace, rather than developing professional skills.请依次给到我以下内容：具体分数及其评分依据、文章修改意见、满分范文。\n"
   ],
@@ -206,10 +230,6 @@ const promptArray = [
     "我想让你担任私人教练。我将为您提供有关希望通过体育锻炼变得更健康、更强壮和更健康的个人所需的所有信息，您的职责是根据该人当前的健身水平、目标和生活习惯为他们制定最佳计划。您应该利用您的运动科学知识、营养建议和其他相关因素来制定适合他们的计划。我的第一个请求是“我需要帮助为想要减肥的人设计一个锻炼计划。”\n"
   ],
   [
-    "担任心理健康顾问",
-    "我想让你担任心理健康顾问。我将为您提供一个寻求指导和建议的人，以管理他们的情绪、压力、焦虑和其他心理健康问题。您应该利用您的认知行为疗法、冥想技巧、正念练习和其他治疗方法的知识来制定个人可以实施的策略，以改善他们的整体健康状况。我的第一个请求是“我需要一个可以帮助我控制抑郁症状的人。”\n"
-  ],
-  [
     "作为房地产经纪人",
     "我想让你担任房地产经纪人。我将为您提供寻找梦想家园的个人的详细信息，您的职责是根据他们的预算、生活方式偏好、位置要求等帮助他们找到完美的房产。您应该利用您对当地住房市场的了解，以便建议符合客户提供的所有标准的属性。我的第一个请求是“我需要帮助在伊斯坦布尔市中心附近找到一栋单层家庭住宅。”\n"
   ],
@@ -310,14 +330,6 @@ const promptArray = [
     "我希望您在示例数据库前充当 SQL 终端。该数据库包含名为“Products”、“Users”、“Orders”和“Suppliers”的表。我将输入查询，您将回复终端显示的内容。我希望您在单个代码块中使用查询结果表进行回复，仅此而已。不要写解释。除非我指示您这样做，否则不要键入命令。当我需要用英语告诉你一些事情时，我会用大括号{like this)。我的第一个命令是“SELECT TOP 10 * FROM Products ORDER BY Id DESC”\n"
   ],
   [
-    "担任营养师",
-    "作为一名营养师，我想为 2 人设计一份素食食谱，每份含有大约 500 卡路里的热量并且血糖指数较低。你能提供一个建议吗？\n"
-  ],
-  [
-    "充当心理学家",
-    "我想让你扮演一个心理学家。我会告诉你我的想法。我希望你能给我科学的建议，让我感觉更好。我的第一个想法，{ 在这里输入你的想法，如果你解释得更详细，我想你会得到更准确的答案。}\n"
-  ],
-  [
     "充当智能域名生成器",
     "我希望您充当智能域名生成器。我会告诉你我的公司或想法是做什么的，你会根据我的提示回复我一个域名备选列表。您只会回复域列表，而不会回复其他任何内容。域最多应包含 7-8 个字母，应该简短但独特，可以是朗朗上口的词或不存在的词。不要写解释。回复“确定”以确认。\n"
   ],
@@ -352,18 +364,6 @@ const promptArray = [
   [
     "充当美食评论家",
     "我想让你扮演美食评论家。我会告诉你一家餐馆，你会提供对食物和服务的评论。您应该只回复您的评论，而不是其他任何内容。不要写解释。我的第一个请求是“我昨晚去了一家新的意大利餐厅。你能提供评论吗？”\n"
-  ],
-  [
-    "充当虚拟医生",
-    "我想让你扮演虚拟医生。我会描述我的症状，你会提供诊断和治疗方案。只回复你的诊疗方案，其他不回复。不要写解释。我的第一个请求是“最近几天我一直感到头痛和头晕”。\n"
-  ],
-  [
-    "担任私人厨师",
-    "我要你做我的私人厨师。我会告诉你我的饮食偏好和过敏，你会建议我尝试的食谱。你应该只回复你推荐的食谱，别无其他。不要写解释。我的第一个请求是“我是一名素食主义者，我正在寻找健康的晚餐点子。”\n"
-  ],
-  [
-    "担任法律顾问",
-    "我想让你做我的法律顾问。我将描述一种法律情况，您将就如何处理它提供建议。你应该只回复你的建议，而不是其他。不要写解释。我的第一个请求是“我出了车祸，不知道该怎么办”。\n"
   ],
   [
     "作为个人造型师",
@@ -595,7 +595,7 @@ function PromptHints(props: {
 
   if (noPrompts) return null;
   return (
-    <div className="relative w-full max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg z-50">
+    <div className="relative w-full max-h-max overflow-y-auto bg-white border border-gray-300 rounded-lg z-50">
       {props.prompts.map((prompt, i) => (
         <div
           ref={i === selectIndex ? selectedRef : null}
@@ -619,7 +619,7 @@ const ChatInterface = () => {
   // const [deployment, setDeployment] = useState("gpt-4o-realtime-preview");
   const deployment = "gpt-4o-realtime-preview";
   const [useVAD, setUseVAD] = useState(true);
-  const [instructions, setInstructions] = useState("You are an AI assistant that helps people find information.");
+  const [instructions, setInstructions] = useState("");
   const [temperature, setTemperature] = useState(0.9);
   const [modality, setModality] = useState("audio");
   // const [tools, setTools] = useState<ToolDeclaration[]>([]);
@@ -635,7 +635,14 @@ const ChatInterface = () => {
   const clientRef = useRef<RTClient | null>(null);
   const audioHandlerRef = useRef<AudioHandler | null>(null);
   const [promptHints, setPromptHints] = useState<Prompt[]>([]);
-
+  // { 
+  //   type: "assistant",
+  //     content: "Hello",
+  //   },
+  // {
+  //   type: "user",
+  //     content: "Hello!",
+  //   },
   const onSearch = useDebouncedCallback(
     (text: string) => {
       setPromptHints(promptSearch(text));
@@ -646,7 +653,7 @@ const ChatInterface = () => {
 
   const onPromptSelect = (prompt: Prompt) => {
     setPromptHints([]);
-    setInstructions(prompt.content);
+    localStorage.setItem('instructions', prompt.content);
   };
 
   // const addTool = () => {
@@ -679,7 +686,7 @@ const ChatInterface = () => {
           silence_duration_ms: silenceDurationMs,
         } : null;
         clientRef.current.configure({
-          instructions: instructions?.length > 0 ? instructions : undefined,
+          instructions: instructions?.length > 0 ? instructions : "You are an AI assistant that helps people find information.",
           input_audio_transcription: { model: "whisper-1" },
           turn_detection: turnDetection,
           tools,
@@ -843,17 +850,50 @@ const ChatInterface = () => {
     };
 
     initAudioHandler().catch(console.error);
-
+    setInstructions(localStorage.getItem('instructions') || '');
     return () => {
       disconnect();
       audioHandlerRef.current?.close().catch(console.error);
     };
   }, []);
+  const [isFocused, setIsFocused] = useState(false);
+  const getLineCount = (text: string) => {
+    const lines = text.length / 30;
+
+    return Math.min(lines, 5);
+  };
 
   return (
     <div className="flex flex-col h-screen">
       {/* Parameters Panel */}
       <div className="" >
+
+        <div className="w-full ">
+          <textarea
+            className="w-full border rounded"
+            value={instructions}
+            placeholder="輸入 / 以搜尋示例"
+            rows={isFocused ? getLineCount(instructions) : 1}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onChange={(e) => {
+              localStorage.setItem('instructions', e.target.value);
+              const text = e.target.value;
+              if (text.startsWith("/")) {
+                const searchText = text.slice(1);
+                onSearch(searchText);
+              } else {
+                setPromptHints([]);
+              }
+            }}
+            disabled={isConnected}
+          />
+          <PromptHints
+            prompts={promptHints}
+            onPromptSelect={onPromptSelect}
+          />
+        </div>
+
         <div className="flex items-center justify-center ">
           {/* <div className="">
             {tools.map((tool, index) => (
@@ -901,7 +941,7 @@ const ChatInterface = () => {
 
           <div className="flex-1 m-2">
             <label className="text-sm font-medium">
-              Temperature ({temperature})
+              创意 ({temperature})
             </label>
             <Slider
               value={[temperature]}
@@ -930,7 +970,7 @@ const ChatInterface = () => {
           </div>
 
           <div className="flex-2 m-2">
-            {/* <span>VAD</span> &nbsp; */}
+            <span>VAD</span> &nbsp;
             <Switch
               checked={useVAD}
               onCheckedChange={setUseVAD}
@@ -955,21 +995,6 @@ const ChatInterface = () => {
               <Settings className="w-4 h-4" />
             </Button>
           </div>
-
-          <div className="flex-2 m-2">
-            <Button
-              variant={isConnected ? "destructive" : "default"}
-              onClick={handleConnect}
-              disabled={isConnecting}
-            >
-              <Power className="w-4 h-4" />
-              {/* {isConnecting
-                ? "Connecting..."
-                : isConnected
-                  ? "Disconnect"
-                  : "Connect"} */}
-            </Button>
-          </div>
         </div>
 
         {useVAD && (
@@ -977,7 +1002,7 @@ const ChatInterface = () => {
 
             <div className="flex-1 m-2">
               <label className="text-sm font-medium">
-                Threshold ({threshold})
+                降噪 ({threshold})
               </label>
               <Slider
                 value={[threshold]}
@@ -991,7 +1016,7 @@ const ChatInterface = () => {
 
             <div className="flex-1 m-2">
               <label className="text-sm font-medium">
-                Prefix P. ({prefixPaddingMs}ms)
+                等待 ({prefixPaddingMs}ms)
               </label>
               <Slider
                 value={[prefixPaddingMs]}
@@ -1005,7 +1030,7 @@ const ChatInterface = () => {
 
             <div className="flex-1 m-2">
               <label className="text-sm font-medium">
-                Silence D. ({silenceDurationMs}ms)
+                停頓 ({silenceDurationMs}ms)
               </label>
               <Slider
                 value={[silenceDurationMs]}
@@ -1018,32 +1043,8 @@ const ChatInterface = () => {
             </div>
 
           </div>)}
-
-        <div className="w-full ">
-          <textarea
-            className="w-full border rounded"
-            value={instructions}
-            placeholder="Instructions"
-            rows={2}
-            onChange={(e) => {
-              setInstructions(e.target.value);
-              const text = e.target.value;
-              if (text.startsWith("/")) {
-                const searchText = text.slice(1);
-                onSearch(searchText);
-              } else {
-                setPromptHints([]);
-              }
-            }}
-            disabled={isConnected}
-          />
-        </div>
       </div>
 
-      <PromptHints
-        prompts={promptHints}
-        onPromptSelect={onPromptSelect}
-      />
       {/* Chat Window */}
       <div className="flex-1 flex flex-col">
         {/* Messages Area */}
@@ -1062,8 +1063,20 @@ const ChatInterface = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t">
+        <div className="fixed bottom-0 left-0 w-full bg-white p-4">
           <div className="flex gap-2">
+            <Button
+              variant={isConnected ? "destructive" : "default"}
+              onClick={handleConnect}
+              disabled={isConnecting}
+            >
+              <Power className="w-4 h-4" />
+              {/* {isConnecting
+                ? "Connecting..."
+                : isConnected
+                  ? "Disconnect"
+                  : "Connect"} */}
+            </Button>
             <Input
               value={currentMessage}
               onChange={(e) => setCurrentMessage(e.target.value)}
